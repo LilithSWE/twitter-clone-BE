@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var msgRouter = require('./routes/message');
@@ -27,6 +28,8 @@ MongoClient.connect("mongodb://127.0.0.1:27017", {
 })
   .then(client => {
     console.log("Vi är uppkopplade mot databasen.");
+    const db = client.db("hackaton"); // databas döpt enligt önskemål
+    app.locals.db = db;
   })
 
 
