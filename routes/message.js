@@ -17,7 +17,7 @@ router.get('/', function (req, res) {
 // POST en ny user. Skickas via Postman för tillfället -> skall sedan skötas via inputs från frontend. 
 router.post("/add", function (req, res) {
   // Ta emot post anropet för EN användare i objekt format från Postman och lägg till i databasen
-  let newMsg = { "id": req.body };
+  let newMsg = req.body
 
 
   // Lägg till i databasen (alternativt skapa db och sen lägg till om den inte finns).
