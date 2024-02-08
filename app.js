@@ -18,6 +18,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+const MongoClient = require('mongodb').MongoClient;
+
+MongoClient.connect("mongodb://127.0.0.1:27017", {
+})
+  .then(client => {
+    console.log("Vi är uppkopplade mot databasen.");
+  })
 
 
 module.exports = app;
