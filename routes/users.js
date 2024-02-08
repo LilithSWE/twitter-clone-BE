@@ -18,11 +18,15 @@ router.get('/', function (req, res) {
 
 // POST en ny user. Skickas via Postman för tillfället -> skall sedan skötas via inputs från frontend. 
 router.post("/add", function (req, res) {
-  // Ta emot post anropet för EN användare i objekt format från Postman och lägg till i databasen
   let newUser = req.body;
-  // Ge ett random id nummer
+  const bodyAllowedList = new Set(["name", "email", "password"]);
+
+  for (const prop in req.body) {
+    if (req.body.hasOwnProperty(prop) && !bodyAllowedList.has(prop)) {
+      res.status(400).json({ message: 'unexpected parameter in POST body' })
+    }
+  }
   newUser.id = randomUUID();
-  // Lägg till i databasen (alternativt skapa db och sen lägg till om den inte finns).
   req.app.locals.db.collection("users").insertOne(newUser)
   res.status(200).json({ message: "Din användare har skapats och givits ett id nummer", newUser })
 });
